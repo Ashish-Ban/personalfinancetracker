@@ -2,7 +2,7 @@
 #include<string.h>
 #include <mysql.h>
 #include "usermodal.h"
-#include "../myutils/stringutils.h"
+#include "../../myutils/stringutils.h"
 
 int create_user(MYSQL* conn, MYSQL_STMT* stmt, char user[], char pass[]) {
 	MYSQL_BIND bind[2];
@@ -43,11 +43,11 @@ int create_user(MYSQL* conn, MYSQL_STMT* stmt, char user[], char pass[]) {
 }
 
 
-int authenticate_user(MYSQL* conn, MYSQL_RES* res, MYSQL_ROW row , char *user, char *pass) {
+long int authenticate_user(MYSQL* conn, MYSQL_RES* res, MYSQL_ROW row , char *user, char *pass) {
 	char CHECK_USER_QUERY[200]="SELECT idusers,username, password from users where username=\"";
 	char *and_clause = "\" and password=\"";
 	char *quote_string = "\"";
-
+	long int userId;
 	replace_with_values(CHECK_USER_QUERY, 4, user, and_clause, pass, quote_string);
 	
 	if (mysql_query(conn,CHECK_USER_QUERY)) {
@@ -59,8 +59,10 @@ int authenticate_user(MYSQL* conn, MYSQL_RES* res, MYSQL_ROW row , char *user, c
 	while ((row = mysql_fetch_row(res)) != NULL)
 	{
 		printf("\n\n ROW : %s %s %s  \n", row[0], row[1],row[2] );
-		return 1;
+		userId = strtol(row[0], NULL, 10);
+		mysql_free_result(res);
+		return userId;
 	}
-
+	mysql_free_result(res);
 	return 0;
 }

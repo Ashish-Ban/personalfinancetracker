@@ -147,12 +147,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="include\modals\usermodal.c" />
+    <ClCompile Include="include\models\salary\salary.c" />
+    <ClCompile Include="include\models\user\usermodal.c" />
     <ClCompile Include="include\myutils\stringutils.c" />
     <ClCompile Include="main.c" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="include\modals\usermodal.h" />
+    <ClInclude Include="include\models\salary\salary.h" />
+    <ClInclude Include="include\models\user\usermodal.h" />
     <ClInclude Include="include\myutils\stringutils.h" />
     <ClInclude Include="resource.h" />
   </ItemGroup>

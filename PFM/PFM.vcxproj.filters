@@ -18,10 +18,13 @@
     <ClCompile Include="main.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="include\modals\usermodal.c">
+    <ClCompile Include="include\models\user\usermodal.c">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="include\myutils\stringutils.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="include\models\salary\salary.c">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -29,10 +32,13 @@
     <ClInclude Include="resource.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\modals\usermodal.h">
+    <ClInclude Include="include\models\user\usermodal.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\myutils\stringutils.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\models\salary\salary.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
