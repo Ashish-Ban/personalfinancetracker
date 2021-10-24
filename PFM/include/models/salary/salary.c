@@ -103,3 +103,29 @@ int add_current_month_salary(int salary, long int userId, MYSQL* conn, MYSQL_STM
 
 	return 0;
 }
+
+
+void show_salary_history(MYSQL *conn, MYSQL_RES *res ,MYSQL_ROW row, struct tm *tm, long int userId) {
+	char SELECT_QUERY[100] = "SELECT idsalary,amount,month,year,user from salary where year=";
+	char year[5],user[6];
+
+	sprintf(year, "%d", (int)tm->tm_year + 1900);
+	sprintf(user,"%li",userId);
+
+	replace_with_values(SELECT_QUERY, 4, year, " and user=", user, ";");
+	if (mysql_query(conn, SELECT_QUERY)) {
+		fprintf(stderr, "show_salary_history => Error in executing SELECT QUERY : %s", mysql_error(conn));
+		return;
+	}
+
+	res = mysql_use_result(conn);
+	system("cls");
+	printf("\n\n\n\x1b[36m \t\t Showing Salary History for year %s  \x1b[0m \n",year);
+	printf("\x1b[31m \t\t Amount\t | Month\t | Year\t  \x1b[0m");
+	while ((row = mysql_fetch_row(res)) != NULL) {
+		printf("\n\t\t\x1b[32m %s\t | \x1b[34m%s\t | \x1b[34m%s\t \x1b[0m  \n", row[1], row[2], row[3]);
+	}
+
+	mysql_free_result(res);
+	return;
+}

@@ -13,6 +13,7 @@ COORD coord = { 0,0 };
 
 void gotoxy(int x, int y);
 void showSalaryMenu(MYSQL* conn, MYSQL_RES* res, MYSQL_ROW row, MYSQL_STMT* stmt, long userId, struct tm* tm);
+void showLoanMenu(long userId);
 
 int main() {
 	char* username = "root";
@@ -125,6 +126,7 @@ int main() {
 			case 2:
 				system("cls");
 				printf("\nShowing current Loan statuses\n");
+				showLoanMenu(auth_result);
 				system("pause");
 				break;
 			case 3:
@@ -174,6 +176,16 @@ void gotoxy(int x, int y) {
 	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
 }
 
+/// <summary>
+/// Shows the salary menu loop, takes MYSQL *conn connection, MYSQL_RES *res result set, MYSQL_STMT *stmt ,userId and time structure *tm;
+/// All the parameters are required.
+/// </summary>
+/// <param name="conn">MYSQL *conn MYSQL connection structure</param>
+/// <param name="res">MYSQL_RES *res to store result</param>
+/// <param name="row">MYSQL_ROW row to iterate rows</param>
+/// <param name="stmt"></param>
+/// <param name="userId"></param>
+/// <param name="tm"></param>
 void showSalaryMenu(MYSQL *conn, MYSQL_RES *res, MYSQL_ROW row, MYSQL_STMT *stmt, long userId, struct tm *tm) {
 	int salaryMenuChoice = 0;
 	int currentMonthSalary;
@@ -192,7 +204,6 @@ void showSalaryMenu(MYSQL *conn, MYSQL_RES *res, MYSQL_ROW row, MYSQL_STMT *stmt
 		{
 		case 1:
 			system("cls");
-			//printf("\n\t\tCurrent Month Salary Status\n\n");
 			currentMonthSalary = show_current_month_salary(tm, userId, conn, res, row);
 			if (currentMonthSalary == -1) {
 				printf("\n\n\n\n\t\tNo Salary This Month \n\n\n\n\t\t");
@@ -219,6 +230,8 @@ void showSalaryMenu(MYSQL *conn, MYSQL_RES *res, MYSQL_ROW row, MYSQL_STMT *stmt
 		case 3:
 			system("cls");
 			printf("\nViewing Your Salary History\n");
+			show_salary_history(conn, res, row, tm, userId);
+			printf("\n\n\n\t\t");
 			system("pause");
 		case 4:
 			system("cls");
@@ -230,6 +243,55 @@ void showSalaryMenu(MYSQL *conn, MYSQL_RES *res, MYSQL_ROW row, MYSQL_STMT *stmt
 			printf("\nInvalid Choice Salary\n");
 			system("pause");
 			break;
+		}
+	}
+}
+
+void showLoanMenu(long user) {
+	int choice = 0;
+	while (choice != -1) {
+		system("cls");
+		printf("\n\n\n\n\n");
+		printf("\n\t\t   Showing Loans \n\n");
+		printf("\n\t\t1. Add Loans");
+		printf("\n\t\t2. List Loans");
+		printf("\n\t\t3. Loan status entry");
+		printf("\n\t\t4. View Loan status");
+		printf("\n\t\t5. Go Back");
+		printf("\n\n\t\t   Enter Choice");
+		printf("\n\n\t\t");
+		scanf_s("%d", &choice);
+		switch (choice) {
+			case 1:
+				system("cls");
+				printf("\nAdding Loans\n");
+				system("pause");
+				break;
+			case 2:
+				system("cls");
+				printf("\nListing Loans\n");
+				system("pause");
+				break;
+			case 3:
+				system("cls");
+				printf("\nLoan Status Entry\n");
+				system("pause");
+				break;
+			case 4:
+				system("cls");
+				printf("\nViewing Loan Status\n");
+				system("pause");
+				break;
+			case 5:
+				system("cls");
+				printf("\nGoing Back\n");
+				choice = -1;
+				break;
+			default :
+				system("cls");
+				printf("\n Invalid Choice");
+				system("pause");
+				break;
 		}
 	}
 }
