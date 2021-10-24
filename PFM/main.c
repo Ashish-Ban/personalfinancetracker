@@ -5,15 +5,16 @@
 #include <Windows.h>
 #include "models/user/usermodal.h"
 #include "models/salary/salary.h"
+#include "models/loan/loan.h"
 #include "myutils/stringutils.h"
 
-#pragma warning (once: 4996 )
+#pragma warning (once: 4996 6031 )
 
 COORD coord = { 0,0 };
 
 void gotoxy(int x, int y);
 void showSalaryMenu(MYSQL* conn, MYSQL_RES* res, MYSQL_ROW row, MYSQL_STMT* stmt, long userId, struct tm* tm);
-void showLoanMenu(long userId);
+void showLoanMenu(MYSQL* conn, MYSQL_RES* res, MYSQL_ROW row, MYSQL_STMT* stmt, long userId);
 
 int main() {
 	char* username = "root";
@@ -119,20 +120,17 @@ int main() {
 		{
 			case 1:
 				system("cls");
-				printf("\nShowing current Salary\n");
-				//system("pause");
 				showSalaryMenu(conn,res,row,stmt,auth_result,&tm);
 				break;
 			case 2:
 				system("cls");
-				printf("\nShowing current Loan statuses\n");
-				showLoanMenu(auth_result);
-				system("pause");
+				showLoanMenu(conn, res, row, stmt, auth_result);
 				break;
 			case 3:
 				system("cls");
 				printf("\nExporting your data ! \n");
 				system("pause");
+				break;
 			case 4: 
 				system("cls");
 				printf("\nExiting the app\n");
@@ -202,55 +200,57 @@ void showSalaryMenu(MYSQL *conn, MYSQL_RES *res, MYSQL_ROW row, MYSQL_STMT *stmt
 		scanf_s("%d", &salaryMenuChoice);
 		switch (salaryMenuChoice)
 		{
-		case 1:
-			system("cls");
-			currentMonthSalary = show_current_month_salary(tm, userId, conn, res, row);
-			if (currentMonthSalary == -1) {
-				printf("\n\n\n\n\t\tNo Salary This Month \n\n\n\n\t\t");
-			}
-			else {
-				printf("\n\n\n\n\t\tCurrent Month Salary : %d \n\n\n\n\t\t", currentMonthSalary);
-			}
-			system("pause");
-			break;
-		case 2:
-			system("cls");
-			printf("\nEnter Current Month Salary\n");
-			scanf("%d", &currentMonthSalary);
-			if ((add_current_month_salary(currentMonthSalary, userId, conn, stmt, tm)) == 1) {
+			case 1:
 				system("cls");
-				printf("\n\n\n\n\t\tSomething went wrong while addding salary. Try again later. \n\n\n\n\t\t");
-			}
-			else {
+				currentMonthSalary = show_current_month_salary(tm, userId, conn, res, row);
+				if (currentMonthSalary == -1) {
+					printf("\n\n\n\n\t\tNo Salary This Month \n\n\n\n\t\t");
+				}
+				else {
+					printf("\n\n\n\n\t\tCurrent Month Salary : %d \n\n\n\n\t\t", currentMonthSalary);
+				}
+				system("pause");
+				break;
+			case 2:
 				system("cls");
-				printf("\n\n\n\n\t\tSalary Added Successfully\n\n\n\n\t\t");
-			}
-			system("pause");
-			break;
-		case 3:
-			system("cls");
-			printf("\nViewing Your Salary History\n");
-			show_salary_history(conn, res, row, tm, userId);
-			printf("\n\n\n\t\t");
-			system("pause");
-		case 4:
-			system("cls");
-			printf("\nGoing Back\n");
-			salaryMenuChoice = -1;
-			break;
-		default:
-			system("cls");
-			printf("\nInvalid Choice Salary\n");
-			system("pause");
-			break;
+				printf("\nEnter Current Month Salary\n");
+				scanf_s("%d", &currentMonthSalary);
+				if ((add_current_month_salary(currentMonthSalary, userId, conn, stmt, tm)) == 1) {
+					system("cls");
+					printf("\n\n\n\n\t\tSomething went wrong while addding salary. Try again later. \n\n\n\n\t\t");
+				}
+				else {
+					system("cls");
+					printf("\n\n\n\n\t\tSalary Added Successfully\n\n\n\n\t\t");
+				}
+				system("pause");
+				break;
+			case 3:
+				system("cls");
+				printf("\nViewing Your Salary History\n");
+				show_salary_history(conn, res, row, tm, userId);
+				printf("\n\n\n\t\t");
+				system("pause");
+				break;
+			case 4:
+				system("cls");
+				printf("\nGoing Back\n");
+				salaryMenuChoice = -1;
+				break;
+			default:
+				system("cls");
+				printf("\nInvalid Choice Salary\n");
+				system("pause");
+				break;
 		}
 	}
 }
 
-void showLoanMenu(long user) {
+void showLoanMenu(MYSQL* conn, MYSQL_RES* res, MYSQL_ROW row, MYSQL_STMT* stmt, long user) {
 	int choice = 0;
 	while (choice != -1) {
 		system("cls");
+		fflush(stdin);
 		printf("\n\n\n\n\n");
 		printf("\n\t\t   Showing Loans \n\n");
 		printf("\n\t\t1. Add Loans");
@@ -258,19 +258,17 @@ void showLoanMenu(long user) {
 		printf("\n\t\t3. Loan status entry");
 		printf("\n\t\t4. View Loan status");
 		printf("\n\t\t5. Go Back");
-		printf("\n\n\t\t   Enter Choice");
+		printf("\n\n\t\tEnter Choice");
 		printf("\n\n\t\t");
 		scanf_s("%d", &choice);
 		switch (choice) {
 			case 1:
 				system("cls");
-				printf("\nAdding Loans\n");
-				system("pause");
+				add_loan(conn, res, row, user);
 				break;
 			case 2:
 				system("cls");
-				printf("\nListing Loans\n");
-				system("pause");
+				list_loans(conn,res,row,user);
 				break;
 			case 3:
 				system("cls");
@@ -284,7 +282,6 @@ void showLoanMenu(long user) {
 				break;
 			case 5:
 				system("cls");
-				printf("\nGoing Back\n");
 				choice = -1;
 				break;
 			default :

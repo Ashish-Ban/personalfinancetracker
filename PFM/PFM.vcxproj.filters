@@ -27,6 +27,9 @@
     <ClCompile Include="include\models\salary\salary.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="include\models\loan\loan.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="resource.h">
@@ -39,6 +42,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\models\salary\salary.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\models\loan\loan.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
