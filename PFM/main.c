@@ -239,13 +239,22 @@ void showSalaryMenu(MYSQL *conn, MYSQL_RES *res, MYSQL_ROW row, MYSQL_STMT *stmt
 				break;
 			default:
 				system("cls");
-				printf("\nInvalid Choice Salary\n");
+				printf("\n\t\tInvalid Choice Salary\n\t\t");
 				system("pause");
 				break;
 		}
 	}
 }
 
+/// <summary>
+/// Shows the Loan menu loop, takes MYSQL *conn connection, MYSQL_RES *res result set, MYSQL_STMT *stmt ,userId
+/// All the parameters are required.
+/// </summary>
+/// <param name="conn">MYSQL *conn MYSQL connection structure</param>
+/// <param name="res">MYSQL_RES *res to store result</param>
+/// <param name="row">MYSQL_ROW row to iterate rows</param>
+/// <param name="stmt"></param>
+/// <param name="userId"></param>
 void showLoanMenu(MYSQL* conn, MYSQL_RES* res, MYSQL_ROW row, MYSQL_STMT* stmt, long user) {
 	int choice = 0;
 	while (choice != -1) {
@@ -284,7 +293,7 @@ void showLoanMenu(MYSQL* conn, MYSQL_RES* res, MYSQL_ROW row, MYSQL_STMT* stmt, 
 				break;
 			default :
 				system("cls");
-				printf("\n\t\tInvalid Choice");
+				printf("\n\t\tInvalid Choice\n\t\t");
 				system("pause");
 				break;
 		}
