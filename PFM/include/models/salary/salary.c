@@ -58,7 +58,7 @@ int add_current_month_salary(int salary, long int userId, MYSQL* conn, MYSQL_STM
 	user = (int)userId;
 	sprintf(monthSalary, "%d", salary);
 	
-	printf("\n\n\n Salary inside add_current_month_salary is %d %li %d %d", salary,user,month,year);
+	//printf("\n\n\n Salary inside add_current_month_salary is %d %li %d %d", salary,user,month,year);
 	if (mysql_stmt_prepare(stmt, INSERT_SALARY_QUERY,120) != 0) {
 		fprintf(stderr, "\nError while preparing query : %s\n %d", mysql_error(conn),mysql_errno(conn));
 		exit(1);
@@ -98,7 +98,7 @@ int add_current_month_salary(int salary, long int userId, MYSQL* conn, MYSQL_STM
 		return 1;
 	}
 
-	printf("\n\n\n\t\tRs. %d added as salary of month %d %d", salary, month, year);
+	printf("\n\n\n\t\tRs. %d added as salary of month %d %d\n\t\t", salary, month, year);
 	system("pause");
 
 	return 0;

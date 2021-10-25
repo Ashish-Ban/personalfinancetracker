@@ -16,6 +16,7 @@ void gotoxy(int x, int y);
 void showSalaryMenu(MYSQL* conn, MYSQL_RES* res, MYSQL_ROW row, MYSQL_STMT* stmt, long userId, struct tm* tm);
 void showLoanMenu(MYSQL* conn, MYSQL_RES* res, MYSQL_ROW row, MYSQL_STMT* stmt, long userId);
 
+
 int main() {
 	char* username = "root";
 	char* password = "";
@@ -60,19 +61,6 @@ int main() {
 		exit(1);
 	}
 
-	// Send Sql query 
-	/*if (mysql_query(conn,"show tables")) {
-		fprintf(stderr, "%s \n", mysql_error(conn));
-		exit(1);
-	}
-	res = mysql_use_result(conn);*/
-	// output table name 
-	/*printf("MY SQL Table in mysql database: \n");
-	while ((row = mysql_fetch_row(res)) != NULL)
-	{
-		printf("%s \n", row[0]);
-	}*/
-
 
 	/*
 	* Below code starts the authentication loop.. the user can try entering username/passwords and 
@@ -111,8 +99,7 @@ int main() {
 		printf("\n\t\tWelcome, %s UID : %li \t\t\t\t %02d-%02d-%d %02d:%02d:%02d \n\n", user, auth_result, tm.tm_mday, tm.tm_mon + 1, tm.tm_year + 1900, tm.tm_hour, tm.tm_min, tm.tm_sec);
 		printf("\n\t\t1. Salary");
 		printf("\n\t\t2. Loans");
-		printf("\n\t\t3. Export Data");
-		printf("\n\t\t4. Exit");
+		printf("\n\t\t3. Exit");
 		printf("\n\n\t\tEnter Choice");
 		printf("\n\n\t\t");
 		scanf_s("%d", &mainMenuChoice);
@@ -126,12 +113,7 @@ int main() {
 				system("cls");
 				showLoanMenu(conn, res, row, stmt, auth_result);
 				break;
-			case 3:
-				system("cls");
-				printf("\nExporting your data ! \n");
-				system("pause");
-				break;
-			case 4: 
+			case 3: 
 				system("cls");
 				printf("\n\n\t\tGood Bye\n\t\t");
 				mainMenuChoice = -1;
@@ -213,7 +195,7 @@ void showSalaryMenu(MYSQL *conn, MYSQL_RES *res, MYSQL_ROW row, MYSQL_STMT *stmt
 				break;
 			case 2:
 				system("cls");
-				printf("\nEnter Current Month Salary\n");
+				printf("\n\n\n\t\tEnter Current Month Salary\n\t\t");
 				scanf_s("%d", &currentMonthSalary);
 				if ((add_current_month_salary(currentMonthSalary, userId, conn, stmt, tm)) == 1) {
 					system("cls");
@@ -227,7 +209,6 @@ void showSalaryMenu(MYSQL *conn, MYSQL_RES *res, MYSQL_ROW row, MYSQL_STMT *stmt
 				break;
 			case 3:
 				system("cls");
-				printf("\nViewing Your Salary History\n");
 				show_salary_history(conn, res, row, tm, userId);
 				printf("\n\n\n\t\t");
 				system("pause");
