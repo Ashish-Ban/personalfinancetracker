@@ -22,6 +22,6 @@ This Project Does <b> NOT </b> take into consideration various cases and scenari
 
 ### Resourses and References
 
-1. MySql Reference and library from (here)[https://dev.mysql.com/doc/c-api/8.0/en/c-api-introduction.html]
-2. C and Windows API Documentation and reference from (here)[https://docs.microsoft.com/en-in/cpp/c-language/?view=msvc-160]
+1. MySql Reference and library from [here](https://dev.mysql.com/doc/c-api/8.0/en/c-api-introduction.html)
+2. C and Windows API Documentation and reference from [here](https://docs.microsoft.com/en-in/cpp/c-language/?view=msvc-160)
 3. Other Online resourses
