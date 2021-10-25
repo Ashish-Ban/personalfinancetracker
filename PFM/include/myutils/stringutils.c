@@ -31,7 +31,7 @@ void replace_with_values(char* destination, int num_values,  ...) {
 	}
 	va_end(valist);
 
-	printf("\n QUERY STRING : %s ", destination);
+	//printf("\n QUERY STRING : %s ", destination);
 }
 
 void long_to_string(char* destination, long int number) {

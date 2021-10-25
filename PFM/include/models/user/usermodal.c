@@ -58,7 +58,7 @@ long int authenticate_user(MYSQL* conn, MYSQL_RES* res, MYSQL_ROW row , char *us
 
 	while ((row = mysql_fetch_row(res)) != NULL)
 	{
-		printf("\n\n ROW : %s %s %s  \n", row[0], row[1],row[2] );
+		//printf("\n\n ROW : %s %s %s  \n", row[0], row[1],row[2] );
 		userId = strtol(row[0], NULL, 10);
 		mysql_free_result(res);
 		return userId;

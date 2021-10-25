@@ -133,12 +133,12 @@ int main() {
 				break;
 			case 4: 
 				system("cls");
-				printf("\nExiting the app\n");
+				printf("\n\n\t\tGood Bye\n\t\t");
 				mainMenuChoice = -1;
 				break;
 			default:
 				system("cls");
-				printf("\nInvalid Choice Main Menu\n");
+				printf("\n\t\tInvalid Choice Main Menu\n\t\t");
 				system("pause");
 				break;
 		}
@@ -252,7 +252,7 @@ void showLoanMenu(MYSQL* conn, MYSQL_RES* res, MYSQL_ROW row, MYSQL_STMT* stmt, 
 		system("cls");
 		fflush(stdin);
 		printf("\n\n\n\n\n");
-		printf("\n\t\t   Showing Loans \n\n");
+		printf("\n\t\tShowing Loans \n\n");
 		printf("\n\t\t1. Add Loans");
 		printf("\n\t\t2. List Loans");
 		printf("\n\t\t3. Loan status entry");
@@ -272,13 +272,11 @@ void showLoanMenu(MYSQL* conn, MYSQL_RES* res, MYSQL_ROW row, MYSQL_STMT* stmt, 
 				break;
 			case 3:
 				system("cls");
-				printf("\nLoan Status Entry\n");
-				system("pause");
+				add_loan_status(conn,res,row,user);
 				break;
 			case 4:
 				system("cls");
-				printf("\nViewing Loan Status\n");
-				system("pause");
+				view_loan_status(conn, res, row, user);
 				break;
 			case 5:
 				system("cls");
@@ -286,7 +284,7 @@ void showLoanMenu(MYSQL* conn, MYSQL_RES* res, MYSQL_ROW row, MYSQL_STMT* stmt, 
 				break;
 			default :
 				system("cls");
-				printf("\n Invalid Choice");
+				printf("\n\t\tInvalid Choice");
 				system("pause");
 				break;
 		}
